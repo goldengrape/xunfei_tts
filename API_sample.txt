@@ -1,0 +1,5 @@
+{
+"key": "这里写入APIKey",
+"id": "这里写入APPID", 
+"url": "http://api.xfyun.cn/v1/service/v1/tts"
+}

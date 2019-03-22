@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# sensitive data
+API.txt 
+
+# mp3 files
+*.mp3
+
 # C extensions
 *.so
 
