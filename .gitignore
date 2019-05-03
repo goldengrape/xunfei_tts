@@ -5,6 +5,7 @@ __pycache__/
 
 # sensitive data
 API.txt 
+API_setup.txt 
 
 # mp3 files
 *.mp3

@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 # coding: utf-8
 
 # 讯飞tts的class
@@ -77,17 +77,19 @@ class Speech:
 #         self.Param_b64str=self.construct_base64_str()
     
     def split_pattern():
-        cn_punc="！，。？、~@#￥%……&*（）：；《）《》“”()»〔〕-" #this line is Chinese punctuation
-        en_punc=string.punctuation
-        useless_chars = frozenset(
-                              en_punc 
-                              + string.whitespace
-                              + cn_punc 
-                              )
+#         cn_punc="！，。？、~@#￥%……&*（）：；《）《》“”()»〔〕-" #this line is Chinese punctuation
+#         en_punc=string.punctuation
+#         useless_chars = frozenset(
+#                               en_punc 
+#                               + string.whitespace
+#                               + cn_punc 
+#                               )
+#         split_pattern=re.compile("([\s\S]{"
+#                  +"{},{}".format(__class__.MIN_SEGMENT_SIZE, __class__.MAX_SEGMENT_SIZE)
+#                  + "}[useless_chars|(?!.\d+)|(?!,\d+)])")
         split_pattern=re.compile("([\s\S]{"
                  +"{},{}".format(__class__.MIN_SEGMENT_SIZE, __class__.MAX_SEGMENT_SIZE)
-                 + "}[useless_chars|(?!.\d+)|(?!,\d+)])")
-        
+                 + "}[,.\n，。|(?!.\d+)|(?!,\d+)])") # 似乎是个bug，有时候会有断句的错误，还是只用逗号句号好了
         return split_pattern
         
     def splitText(self,text):
@@ -148,7 +150,12 @@ class Speech:
             raise UserWarning("讯飞WebAPI错误: {}".format(err_msg["desc"]))
         else: 
             audio_data=response.read()
-            voice = AudioSegment.from_mp3(BytesIO(audio_data))
+            # 为了方便连接多个语句，此处使用pydub处理获得的数据
+            if self.Param["aue"]=='lame':
+                voice = AudioSegment.from_mp3(BytesIO(audio_data))
+            elif self.Param["aue"]=='raw':
+                voice = AudioSegment.from_wav(BytesIO(audio_data))
+
             return voice
     
     def play(self, text):
