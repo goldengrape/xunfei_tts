@@ -10,6 +10,9 @@ API_setup.txt
 # mp3 files
 *.mp3
 
+# epub files
+*.epub
+
 # C extensions
 *.so
 

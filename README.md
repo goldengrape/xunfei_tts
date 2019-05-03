@@ -28,6 +28,27 @@
 
 # 使用示例
 
+## 命令行使用：
+
+* 简单文本朗读
+```
+python speak.py -t 'Hello world，这是一个测试' -s
+```
+* 文本朗读，保存为mp3文件
+```
+python speak.py -t 'Hello world，这是一个测试' -o 'test.mp3'
+```
+* 将文本文件转换成语音mp3文件
+```
+python speak.py -f test.txt -o test.mp3
+```
+* 将epub转换成语音mp3文件
+```
+python speak.py -e test.epub -o test.mp3
+```
+其中epub是由多个html构成，每个html文件会单独保存成一个mp3文件:test_001.mp3, test_002.mp3, ...
+
+
 ## 基础应用
 ```python
 from xunfei_tts import Speech as xf_Speech
